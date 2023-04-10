@@ -1,4 +1,4 @@
-package com.zapmap.pokemon
+package com.zapmap.pokemon.features.pokemon_details.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,7 +6,9 @@ import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import com.zapmap.pokemon.RemotePokemon
 import com.zapmap.pokemon.databinding.ActivityPokemonDetailBinding
+import com.zapmap.pokemon.features.pokemon_list.data.dto.RemotePokemonItem
 
 class PokemonDetailActivity : AppCompatActivity() {
 
@@ -33,10 +35,10 @@ class PokemonDetailActivity : AppCompatActivity() {
         lifecycleScope.launchWhenCreated {
             val stringId = remotePokemonItem.url.removeSuffix("/").substringAfterLast("/")
             val id = stringId.toInt()
-            val response = Api.getApi().fetchPokemonById(id)
-            if (response.isSuccessful) {
-                displayPokemon(response.body()!!)
-            }
+//            val response = Api.getApi().fetchPokemonById(id)
+//            if (response.isSuccessful) {
+//                displayPokemon(response.body()!!)
+//            }
         }
         binding.recyclerViewTypes.adapter = typesAdapter
 

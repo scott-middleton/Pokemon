@@ -1,4 +1,4 @@
-package com.zapmap.pokemon
+package com.zapmap.pokemon.features.pokemon_list.data.dto
 
 import com.squareup.moshi.JsonClass
 
