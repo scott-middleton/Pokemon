@@ -1,6 +1,6 @@
 package com.zapmap.pokemon.core.data
 
-import com.zapmap.pokemon.RemotePokemon
+import com.zapmap.pokemon.features.pokemon_details.data.dto.RemotePokemonDetail
 import com.zapmap.pokemon.features.pokemon_list.data.dto.PokemonsResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -16,5 +16,5 @@ interface PokemonApi {
     @GET("pokemon/{id}")
     suspend fun fetchPokemonById(
         @Path("id") id: Int,
-    ): Response<RemotePokemon>
+    ): Response<RemotePokemonDetail>
 }

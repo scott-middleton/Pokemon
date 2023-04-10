@@ -5,9 +5,10 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.zapmap.pokemon.core.domain.model.UiPokemon
 import com.zapmap.pokemon.databinding.ActivityMainBinding
 import com.zapmap.pokemon.features.pokemon_details.presentation.PokemonDetailActivity
+import com.zapmap.pokemon.features.pokemon_details.presentation.PokemonDetailActivity.Companion.POKEMON_ID_EXTRA_ID
+import com.zapmap.pokemon.features.pokemon_list.domain.mappers.model.UiPokemonItem
 import com.zapmap.pokemon.features.pokemon_list.presentation.PokemonAdapter
 import com.zapmap.pokemon.features.pokemon_list.presentation.PokemonListViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,11 +43,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun onPokemonClicked(pokemon: UiPokemon) {
+    private fun onPokemonClicked(pokemon: UiPokemonItem) {
         ZoogleAnalytics.logEvent(ZoogleAnalyticsEvent("pokemon_selected", mapOf("id" to pokemon.id.toString())))
 
         Intent(this@MainActivity, PokemonDetailActivity::class.java).apply {
-            putExtra("pokemon_id", pokemon.id)
+            putExtra(POKEMON_ID_EXTRA_ID, pokemon.id)
             startActivity(this@apply)
         }
     }

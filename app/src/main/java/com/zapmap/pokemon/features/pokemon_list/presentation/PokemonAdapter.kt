@@ -8,10 +8,10 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.zapmap.pokemon.R
-import com.zapmap.pokemon.core.domain.model.UiPokemon
+import com.zapmap.pokemon.features.pokemon_list.domain.mappers.model.UiPokemonItem
 
-class PokemonAdapter(private val callback: (UiPokemon) -> Unit) :
-    PagingDataAdapter<UiPokemon, PokemonAdapter.ViewHolder>(PokemonItemDiffCallback()) {
+class PokemonAdapter(private val callback: (UiPokemonItem) -> Unit) :
+    PagingDataAdapter<UiPokemonItem, PokemonAdapter.ViewHolder>(PokemonItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView =
@@ -34,12 +34,12 @@ class PokemonAdapter(private val callback: (UiPokemon) -> Unit) :
         val textViewName: TextView = view.findViewById(R.id.textViewName)
     }
 
-    class PokemonItemDiffCallback : DiffUtil.ItemCallback<UiPokemon>() {
-        override fun areItemsTheSame(oldItem: UiPokemon, newItem: UiPokemon): Boolean {
+    class PokemonItemDiffCallback : DiffUtil.ItemCallback<UiPokemonItem>() {
+        override fun areItemsTheSame(oldItem: UiPokemonItem, newItem: UiPokemonItem): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: UiPokemon, newItem: UiPokemon): Boolean {
+        override fun areContentsTheSame(oldItem: UiPokemonItem, newItem: UiPokemonItem): Boolean {
             return oldItem == newItem
         }
     }

@@ -3,18 +3,18 @@ package com.zapmap.pokemon.features.pokemon_list.data
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.zapmap.pokemon.core.data.PokemonApi
-import com.zapmap.pokemon.core.domain.mappers.toUiPokemon
-import com.zapmap.pokemon.core.domain.model.UiPokemon
+import com.zapmap.pokemon.features.pokemon_list.domain.toUiPokemon
+import com.zapmap.pokemon.features.pokemon_list.domain.mappers.model.UiPokemonItem
 import retrofit2.HttpException
 import java.io.IOException
 
-class PokemonPagingSource(private val pokemonApi: PokemonApi) : PagingSource<Int, UiPokemon>() {
+class PokemonPagingSource(private val pokemonApi: PokemonApi) : PagingSource<Int, UiPokemonItem>() {
 
     companion object {
         private const val STARTING_PAGE_INDEX = 0
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UiPokemon> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UiPokemonItem> {
         val position = params.key ?: STARTING_PAGE_INDEX
         return try {
             val response = pokemonApi.fetchPokemons(limit = params.loadSize, offset = position * params.loadSize)
@@ -36,7 +36,7 @@ class PokemonPagingSource(private val pokemonApi: PokemonApi) : PagingSource<Int
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, UiPokemon>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, UiPokemonItem>): Int? {
         return state.anchorPosition
     }
 }

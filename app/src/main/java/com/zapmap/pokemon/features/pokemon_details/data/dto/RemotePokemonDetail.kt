@@ -1,8 +1,8 @@
-package com.zapmap.pokemon
+package com.zapmap.pokemon.features.pokemon_details.data.dto
 
 import com.squareup.moshi.Json
 
-data class RemotePokemon(
+data class RemotePokemonDetail(
     val name: String,
     val weight: Int,
     val height: Int,

@@ -1,23 +1,25 @@
 package com.zapmap.pokemon.features.pokemon_details.presentation
 
 import android.os.Bundle
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import coil.load
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
-import com.zapmap.pokemon.RemotePokemon
 import com.zapmap.pokemon.databinding.ActivityPokemonDetailBinding
-import com.zapmap.pokemon.features.pokemon_list.data.dto.RemotePokemonItem
+import com.zapmap.pokemon.features.pokemon_details.domain.model.UiPokemonDetail
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PokemonDetailActivity : AppCompatActivity() {
+    companion object {
+        const val POKEMON_ID_EXTRA_ID = "POKEMON_ID_EXTRA_ID"
+    }
 
     private lateinit var binding: ActivityPokemonDetailBinding
-
-    private lateinit var remotePokemonItem: RemotePokemonItem
-
-    private val moshi = Moshi.Builder().build()
-    private val jsonAdapter: JsonAdapter<RemotePokemonItem> = moshi.adapter(RemotePokemonItem::class.java)
+    private val viewModel: PokemonDetailViewModel by viewModels()
 
     private val typesAdapter = TypesAdapter()
 
@@ -28,30 +30,54 @@ class PokemonDetailActivity : AppCompatActivity() {
 
         binding.toolbar.setNavigationOnClickListener { onBackPressed() }
 
-        intent?.getStringExtra("json")?.let {
-            remotePokemonItem = jsonAdapter.fromJson(it)!!
-        }
-
-        lifecycleScope.launchWhenCreated {
-            val stringId = remotePokemonItem.url.removeSuffix("/").substringAfterLast("/")
-            val id = stringId.toInt()
-//            val response = Api.getApi().fetchPokemonById(id)
-//            if (response.isSuccessful) {
-//                displayPokemon(response.body()!!)
-//            }
-        }
         binding.recyclerViewTypes.adapter = typesAdapter
 
-        binding.textViewPokemonName.text = remotePokemonItem.name
+        intent?.getIntExtra(POKEMON_ID_EXTRA_ID, -1)?.let { pokemonId ->
+            if (pokemonId != -1) {
+                viewModel.fetchPokemonDetails(pokemonId)
+            }
+        }
+
+        setupCollectors()
     }
 
-    private fun displayPokemon(pokemon: RemotePokemon) {
+    private fun setupCollectors() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.errorFlow.collect { errorMessage ->
+                val context = this@PokemonDetailActivity
+                Toast.makeText(
+                    context,
+                    errorMessage.asString(context),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.uiState.collect { uiPokemonDetail ->
+                binding.loadingIndicator.apply {
+                    if (uiPokemonDetail.isLoading) {
+                        visibility = VISIBLE
+                    } else {
+                        visibility = GONE
+                    }
+                }
+
+                uiPokemonDetail.pokemonDetail?.let {
+                    displayPokemon(it)
+                }
+            }
+        }
+    }
+
+    private fun displayPokemon(pokemon: UiPokemonDetail) {
         binding.apply {
-            textViewPokemonName.text = pokemon.name.capitalize()
+
+            textViewPokemonName.text = pokemon.name
             textViewWeight.text = pokemon.weight.toString()
             textViewHeight.text = pokemon.height.toString()
-            imageViewPokemonFront.load(pokemon.sprites.frontDefault)
-            typesAdapter.updateItems(pokemon.types.map { it.type.name })
+            imageViewPokemonFront.load(pokemon.spriteFrontDefault)
+            typesAdapter.updateItems(pokemon.typeNames)
         }
     }
 }
