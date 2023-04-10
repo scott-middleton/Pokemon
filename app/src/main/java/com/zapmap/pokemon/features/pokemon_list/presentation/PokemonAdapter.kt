@@ -8,7 +8,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.zapmap.pokemon.R
-import com.zapmap.pokemon.features.pokemon_list.domain.mappers.model.UiPokemonItem
+import com.zapmap.pokemon.features.pokemon_list.domain.model.UiPokemonItem
 
 class PokemonAdapter(private val callback: (UiPokemonItem) -> Unit) :
     PagingDataAdapter<UiPokemonItem, PokemonAdapter.ViewHolder>(PokemonItemDiffCallback()) {

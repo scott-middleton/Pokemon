@@ -1,11 +1,12 @@
-package com.zapmap.pokemon.core.data
+package com.zapmap.pokemon.core.data.repository
 
 import androidx.paging.PagingSource
+import com.zapmap.pokemon.core.data.remote.PokemonApi
 import com.zapmap.pokemon.core.domain.PokemonRepository
 import com.zapmap.pokemon.features.pokemon_details.domain.mapper.toUiPokemonDetail
 import com.zapmap.pokemon.features.pokemon_details.domain.model.UiPokemonDetail
-import com.zapmap.pokemon.features.pokemon_list.domain.mappers.model.UiPokemonItem
-import com.zapmap.pokemon.features.pokemon_list.data.PokemonPagingSource
+import com.zapmap.pokemon.features.pokemon_list.domain.model.UiPokemonItem
+import com.zapmap.pokemon.features.pokemon_list.data.paging.PokemonPagingSource
 
 class PokemonRepositoryImpl(private val api: PokemonApi) : PokemonRepository {
 

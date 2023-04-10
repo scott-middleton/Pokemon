@@ -2,8 +2,8 @@ package com.zapmap.pokemon.di
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.zapmap.pokemon.core.data.PokemonApi
-import com.zapmap.pokemon.core.data.PokemonRepositoryImpl
+import com.zapmap.pokemon.core.data.remote.PokemonApi
+import com.zapmap.pokemon.core.data.repository.PokemonRepositoryImpl
 import com.zapmap.pokemon.core.domain.PokemonRepository
 import dagger.Module
 import dagger.Provides

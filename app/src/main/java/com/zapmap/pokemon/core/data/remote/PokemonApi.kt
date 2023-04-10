@@ -1,4 +1,4 @@
-package com.zapmap.pokemon.core.data
+package com.zapmap.pokemon.core.data.remote
 
 import com.zapmap.pokemon.features.pokemon_details.data.dto.RemotePokemonDetail
 import com.zapmap.pokemon.features.pokemon_list.data.dto.PokemonsResponse

@@ -1,10 +1,10 @@
-package com.zapmap.pokemon.features.pokemon_list.data
+package com.zapmap.pokemon.features.pokemon_list.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.zapmap.pokemon.core.data.PokemonApi
-import com.zapmap.pokemon.features.pokemon_list.domain.toUiPokemon
-import com.zapmap.pokemon.features.pokemon_list.domain.mappers.model.UiPokemonItem
+import com.zapmap.pokemon.core.data.remote.PokemonApi
+import com.zapmap.pokemon.features.pokemon_list.domain.mappers.toUiPokemon
+import com.zapmap.pokemon.features.pokemon_list.domain.model.UiPokemonItem
 import retrofit2.HttpException
 import java.io.IOException
 

@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PokemonDetailActivity : AppCompatActivity() {
     companion object {
-        const val POKEMON_ID_EXTRA_ID = "POKEMON_ID_EXTRA_ID"
+        const val POKEMON_ID_EXTRA = "POKEMON_ID_EXTRA_ID"
     }
 
     private lateinit var binding: ActivityPokemonDetailBinding
@@ -32,7 +32,7 @@ class PokemonDetailActivity : AppCompatActivity() {
 
         binding.recyclerViewTypes.adapter = typesAdapter
 
-        intent?.getIntExtra(POKEMON_ID_EXTRA_ID, -1)?.let { pokemonId ->
+        intent?.getIntExtra(POKEMON_ID_EXTRA, -1)?.let { pokemonId ->
             if (pokemonId != -1) {
                 viewModel.fetchPokemonDetails(pokemonId)
             }
@@ -56,10 +56,10 @@ class PokemonDetailActivity : AppCompatActivity() {
         lifecycleScope.launchWhenStarted {
             viewModel.uiState.collect { uiPokemonDetail ->
                 binding.loadingIndicator.apply {
-                    if (uiPokemonDetail.isLoading) {
-                        visibility = VISIBLE
+                    visibility = if (uiPokemonDetail.isLoading) {
+                        VISIBLE
                     } else {
-                        visibility = GONE
+                        GONE
                     }
                 }
 
@@ -72,7 +72,6 @@ class PokemonDetailActivity : AppCompatActivity() {
 
     private fun displayPokemon(pokemon: UiPokemonDetail) {
         binding.apply {
-
             textViewPokemonName.text = pokemon.name
             textViewWeight.text = pokemon.weight.toString()
             textViewHeight.text = pokemon.height.toString()

@@ -10,9 +10,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class PokemonListViewModel @Inject constructor(private val repository: PokemonRepository) : ViewModel() {
+class PokemonListViewModel @Inject constructor(repository: PokemonRepository) : ViewModel() {
 
-    val pokemonList = Pager(
+    val pagingDataFlow = Pager(
         config = PagingConfig(pageSize = 50, enablePlaceholders = false),
         pagingSourceFactory = { repository.getPokemonPagingSource() }
     ).flow.cachedIn(viewModelScope)

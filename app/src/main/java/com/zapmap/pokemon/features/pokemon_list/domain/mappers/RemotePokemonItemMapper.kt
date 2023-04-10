@@ -1,6 +1,6 @@
-package com.zapmap.pokemon.features.pokemon_list.domain
+package com.zapmap.pokemon.features.pokemon_list.domain.mappers
 
-import com.zapmap.pokemon.features.pokemon_list.domain.mappers.model.UiPokemonItem
+import com.zapmap.pokemon.features.pokemon_list.domain.model.UiPokemonItem
 import com.zapmap.pokemon.features.pokemon_list.data.dto.RemotePokemonItem
 import java.util.*
 
