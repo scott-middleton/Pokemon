@@ -36,19 +36,19 @@ I would like to be presented with a list of Pokemon names from the https://pokea
 
 This update addresses several issues in the original codebase and implements best practices for a more organized, maintainable, and efficient app. The following improvements have been made:
 
-Paging Library: The use of Android's Paging Library has been introduced to handle the loading and display of data in a more efficient manner. This eliminates the need for manual scroll listeners and ensures a smooth user experience.
+Paging Library: The use of Android's Paging Library has been introduced to handle the loading and display of data in a more efficient manner. This eliminates the need for manual scroll listeners.
 
-Repository Pattern: The repository pattern has been implemented with a PokemonRepository interface and a PokemonRepositoryImpl class. This abstraction improves modularity and testability while making it easier to switch between different data sources.
+Repository Pattern: The repository pattern has been implemented with a PokemonRepository interface and a PokemonRepositoryImpl class. This abstraction improves modularity and testability while making it easier to switch between different data sources and would gracefully support a local data source.
 
-ViewModels: ViewModels (PokemonListViewModel and PokemonDetailViewModel) have been introduced to separate UI-related logic from the rest of the app. This allows for better separation of concerns and improves the handling of activity and fragment lifecycles.
+ViewModels: ViewModels (PokemonListViewModel and PokemonDetailViewModel) have been introduced to separate UI-related logic from the rest of the app. This allows for better separation of concerns and improves the handling of activity lifecycles.
 
 Improved Data Passing: Instead of passing the entire RemotePokemonItem object between activities, only the Pokémon ID is passed to the PokemonDetailActivity. This simplifies data handling and reduces the potential for inconsistencies.
 
-Error Handling: Proper error handling has been added for failed API requests, providing feedback to the user in case of an issue.
+Error Handling and loading states: Proper error handling has been added for failed API requests, providing feedback to the user in case of an issue.
 
 Efficient List Updates: The use of DiffUtil and ListAdapter has been implemented in the PokemonAdapter and TypesAdapter classes to enable efficient list updates, reducing the need for full list refreshes.
 
-Dependency Injection: The app now uses Hilt for dependency injection, ensuring that dependencies are managed efficiently and consistently across the application. Additionally this improves testability.
+Dependency Injection: The app now uses Hilt for dependency injection, ensuring that dependencies are managed efficiently and consistently across the application.
 
 Coroutines: The code utilizes Kotlin Coroutines and Retrofit to fetch data from the API in a more efficient and organized manner, improving the overall performance and structure of the app.
 
