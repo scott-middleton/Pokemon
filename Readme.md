@@ -32,25 +32,42 @@ I would like to be presented with a list of Pokemon names from the https://pokea
 
 **Note, please capitalise the `name` values in the JSON rather than fetching the localised version.**
 
-### Pokemon list
+## Summary of Changes
 
-On first opening the app I would like to see a list of Pokemon names.
+This update addresses several issues in the original codebase and implements best practices for a more organized, maintainable, and efficient app. The following improvements have been made:
 
-These will come from the `https://pokeapi.co/api/v2/pokemon` endpoint.
+Paging Library: The use of Android's Paging Library has been introduced to handle the loading and display of data in a more efficient manner. This eliminates the need for manual scroll listeners.
 
-Upon tapping on a Pokemon name I would like to be presented with the Pokemon's details. The Pokemon id selected must be logged in Zoogle Analytics.
+Repository Pattern: The repository pattern has been implemented with a PokemonRepository interface and a PokemonRepositoryImpl class. This abstraction improves modularity and testability while making it easier to switch between different data sources and would gracefully support a local data source.
 
-The list should have infinite scrolling to go through all the Pokemon names.
+ViewModels: ViewModels (PokemonListViewModel and PokemonDetailViewModel) have been introduced to separate UI-related logic from the rest of the app. This allows for better separation of concerns and improves the handling of activity lifecycles.
 
-### Pokemon details
+Improved Data Passing: Instead of passing the entire RemotePokemonItem object between activities, only the Pokémon ID is passed to the PokemonDetailActivity. This simplifies data handling and reduces the potential for inconsistencies.
 
-The Pokemon details page will use the `https://pokeapi.co/api/v2/pokemon/{id}/` endpoint, e.g. https://pokeapi.co/api/v2/pokemon/1/.
+Error Handling and loading states: Proper error handling has been added for failed API requests, providing feedback to the user in case of an issue.
 
-This page should show the following details once loaded:
-- The Pokemon's name
-- A single image of the pokemon from the front (found under `sprites`)
-- The Pokemon's "types" e.g. grass
-- The Pokemon's weight in kg
-- The Pokemon's height in cm
+Efficient List Updates: The use of DiffUtil and ListAdapter has been implemented in the PokemonAdapter and TypesAdapter classes to enable efficient list updates, reducing the need for full list refreshes.
 
-The page should also have some form of back button to go back to the Pokemon list.
+Dependency Injection: The app now uses Hilt for dependency injection, ensuring that dependencies are managed efficiently and consistently across the application.
+
+Coroutines: The code utilizes Kotlin Coroutines and Retrofit to fetch data from the API in a more efficient and organized manner, improving the overall performance and structure of the app.
+
+Screen orientation: Layout changes better support landscape sceeen orientation
+
+Code Clean-up: Unused annotations and redundant code have been removed for better readability and maintainability.
+
+## Additonal improvements if I had more time
+
+Test Coverage: Increase end-to-end and UI tests to ensure app reliability and stability. I could also test more varied scenarios and edge cases in the Unit tests.
+
+Dark Theme Styling: Refine dark theme as currently the colours remain a little off.
+
+Navigation: Introduce Navigation component or Jetpack Compose for streamlined navigation and simplified UI development.
+
+Offline Support: Implement caching and local data storage (e.g., using Room) to allow users to access previously fetched data when offline.
+
+Accessibility: Improve accessibility support by ensuring proper contrast, adding content descriptions, and supporting dynamic text sizes.
+
+Error Handling: Implement error handling for paging functionality.
+
+Dependencies: Upgrade to the latest compatible versions to stay up-to-date with libraries and tools.
