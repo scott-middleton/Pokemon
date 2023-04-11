@@ -57,8 +57,13 @@ Code Clean-up: Unused annotations and redundant code have been removed for bette
 ## Additonal improvements if I had more time
 
 Test Coverage: Increase end-to-end and UI tests to ensure app reliability and stability. I could also test more varied scenarios and edge cases in the Unit tests.
+
 Dark Theme Styling: Refine dark theme for a polished user interface.
+
 Navigation: Introduce Navigation component or Jetpack Compose for streamlined navigation and simplified UI development.
+
 Offline Support: Implement caching and local data storage (e.g., using Room) to allow users to access previously fetched data when offline.
+
 Accessibility: Improve accessibility support by ensuring proper contrast, adding content descriptions, and supporting dynamic text sizes.
+
 Error Handling: Introduce error handling for the paging implementation.
