@@ -52,6 +52,8 @@ Dependency Injection: The app now uses Hilt for dependency injection, ensuring t
 
 Coroutines: The code utilizes Kotlin Coroutines and Retrofit to fetch data from the API in a more efficient and organized manner, improving the overall performance and structure of the app.
 
+Screen orientation: Layout changes better support landscape sceeen orientation
+
 Code Clean-up: Unused annotations and redundant code have been removed for better readability and maintainability.
 
 ## Additonal improvements if I had more time
