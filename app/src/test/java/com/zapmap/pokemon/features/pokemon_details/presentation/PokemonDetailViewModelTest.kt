@@ -11,7 +11,7 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
-import org.junit.Assert.assertEquals
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
@@ -53,5 +53,17 @@ class PokemonDetailViewModelTest {
             val error = awaitItem()
             assertEquals(UiText.StringResource(R.string.generic_error_details), error)
         }
+    }
+
+    @Test
+    fun `When fetchPokemonDetails() called, loading state is emitted`() = runTest {
+        val id = 1
+        viewModel.fetchPokemonDetails(id)
+
+        val firstState = viewModel.uiState.first()
+        assertTrue(firstState.isLoading)
+
+        val secondState = viewModel.uiState.drop(1).first()
+        assertFalse(secondState.isLoading)
     }
 }
