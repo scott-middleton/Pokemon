@@ -42,6 +42,8 @@ Repository Pattern: The repository pattern has been implemented with a PokemonRe
 
 ViewModels: ViewModels (PokemonListViewModel and PokemonDetailViewModel) have been introduced to separate UI-related logic from the rest of the app. This allows for better separation of concerns and improves the handling of activity lifecycles.
 
+Clean architecture: Separated data, domain and presentation layers for a clear separation of concerns. The UI layer no longer know about the data layer and vice versa.
+
 Improved Data Passing: Instead of passing the entire RemotePokemonItem object between activities, only the Pokémon ID is passed to the PokemonDetailActivity. This simplifies data handling and reduces the potential for inconsistencies.
 
 Error Handling and loading states: Proper error handling has been added for failed API requests, providing feedback to the user in case of an issue.
