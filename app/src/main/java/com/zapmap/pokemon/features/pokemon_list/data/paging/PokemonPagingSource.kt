@@ -11,20 +11,21 @@ import java.io.IOException
 class PokemonPagingSource(private val pokemonApi: PokemonApi) : PagingSource<Int, UiPokemonItem>() {
 
     companion object {
-        private const val STARTING_PAGE_INDEX = 0
+        private const val STARTING_POSITION = 0
+        private const val PAGE_SIZE = 100
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UiPokemonItem> {
-        val position = params.key ?: STARTING_PAGE_INDEX
+        val position = params.key ?: STARTING_POSITION
         return try {
-            val response = pokemonApi.fetchPokemons(limit = params.loadSize, offset = position * params.loadSize)
+            val response = pokemonApi.fetchPokemons(limit = PAGE_SIZE, offset = position)
 
             if (response.isSuccessful) {
                 val results = response.body()?.pokemonItems ?: emptyList()
                 LoadResult.Page(
                     data = results.map { it.toUiPokemon() },
-                    prevKey = if (position == STARTING_PAGE_INDEX) null else position - params.loadSize,
-                    nextKey = if (results.isEmpty()) null else position + params.loadSize
+                    prevKey = if (position == STARTING_POSITION) null else position - PAGE_SIZE,
+                    nextKey = if (results.isEmpty()) null else position + PAGE_SIZE
                 )
             } else {
                 LoadResult.Error(HttpException(response))
