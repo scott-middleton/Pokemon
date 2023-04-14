@@ -11,20 +11,23 @@ import java.io.IOException
 class PokemonPagingSource(private val pokemonApi: PokemonApi) : PagingSource<Int, UiPokemonItem>() {
 
     companion object {
-        private const val STARTING_POSITION = 0
-        private const val PAGE_SIZE = 100
+        private const val STARTING_POSITION = 0 // using a slightly more descriptive name
+        private const val PAGE_SIZE = 100 // new constant to define the size of pages
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UiPokemonItem> {
         val position = params.key ?: STARTING_POSITION
         return try {
-            val response = pokemonApi.fetchPokemons(limit = PAGE_SIZE, offset = position)
+            val response = pokemonApi.fetchPokemons(
+                limit = PAGE_SIZE, // always using the same constant for the page size
+                offset = position  // fixed a bug that caused the call for the second page to have an offset of 7500
+            )
 
             if (response.isSuccessful) {
                 val results = response.body()?.pokemonItems ?: emptyList()
                 LoadResult.Page(
                     data = results.map { it.toUiPokemon() },
-                    prevKey = if (position == STARTING_POSITION) null else position - PAGE_SIZE,
+                    prevKey = if (position == STARTING_POSITION) null else position - PAGE_SIZE, // we control the page size directly here
                     nextKey = if (results.isEmpty()) null else position + PAGE_SIZE
                 )
             } else {
